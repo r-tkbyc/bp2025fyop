@@ -1,6 +1,6 @@
 // ★★★ GPSエリア限定機能の有効/無効を切り替える設定 ★★★
 // true: エリア限定を有効にする / false: エリア限定を無効にする
-const IS_GPS_LIMIT_ENABLED = true;
+const IS_GPS_LIMIT_ENABLED = false;
 
 // 1. エリア設定（例として東京駅周辺 半径500m に設定）
 // IS_GPS_LIMIT_ENABLED が true の場合のみ、以下の設定が使用されます。

@@ -200,6 +200,33 @@ body {
 .preview-btn.primary { background: #28a745; }
 .preview-btn.danger  { background: #a1a1aa; }
 
+/* 旧世代スマホ幅でプレビューを少し小さく */
+@media (max-width: 430px) {
+  .preview-wrap {
+    width: min(88vw, 560px);   /* ← 92vw → 88vw に絞る */
+    padding: 12px;             /* 余白も少しだけ詰める */
+  }
+  #previewImage {
+    max-height: 64vh;          /* 70vh → 64vh：縦も控えめに */
+  }
+  .preview-actions {
+    gap: 12px;                 /* ボタン間の隙間を少し狭める */
+    margin-top: 10px;
+  }
+  .preview-btn {
+    min-width: 110px;          /* 横幅を微調整 */
+    height: 36px;              /* 40px → 36px */
+    font-size: 13px;           /* 14px → 13px */
+    padding: 0 12px;
+  }
+}
+
+/* さらに狭い端末（≈360px級）ではもう一段だけ縮める */
+@media (max-width: 380px) {
+  .preview-wrap { width: min(84vw, 520px); }
+  #previewImage { max-height: 60vh; }
+}
+
 /* ==================== スタンプ選択ボトムシート ==================== */
 /* 基本：idとclassの二重指定を統合（同一DOMに id=stampSheet class=stamp-sheet が付与される） */
 .stamp-sheet {

@@ -176,55 +176,100 @@ body {
 /* ===== 撮影プレビュー専用 ===== */
 #previewModal:not(.hidden) { display: flex; }
 #previewModal.modal { padding: 0; }
+
+/* モーダル全体とサイズ用の変数（ここを書き換えると一括で調整可能） */
 .preview-wrap {
-  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: min(92vw, 640px); background: #fff; border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.35); padding: 16px 16px 20px; margin: 0;
+  /* ベース値（端末が広いほど 640px を上限に 92vw で可変） */
+  --preview-wrap-w: min(92vw, 640px);
+  --preview-img-maxh: 70vh;
+  --preview-gap: 16px;
+
+  /* ボタンのサイズ一式（下のメディアクエリで同調縮小） */
+  --btn-minw: 120px;
+  --btn-h: 40px;
+  --btn-font: 14px;
+  --btn-pad-x: 16px;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--preview-wrap-w);
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  padding: 16px 16px 20px;
+  margin: 0;
 }
+
 .preview-close {
-  position: absolute; top: 8px; right: 10px;
-  border: none; background: transparent; font-size: 28px; line-height: 1; color: #666; cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  color: #666;
+  cursor: pointer;
 }
+
 #previewImage {
-  display: block; width: 100%; height: auto; max-height: 70vh;
-  object-fit: contain; background: #ffffff; border-radius: 8px;
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: var(--preview-img-maxh);
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 8px;
 }
+
 .preview-actions {
-  display: flex; gap: 16px; justify-content: center; align-items: center;
-  margin-top: 14px; padding-bottom: env(safe-area-inset-bottom, 0px);
+  display: flex;
+  gap: var(--preview-gap);
+  justify-content: center;
+  align-items: center;
+  margin-top: 14px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
+
 .preview-btn {
-  min-width: 120px; height: 40px; border-radius: 999px; border: none;
-  background: #ff5b82; color: #fff; font-size: 14px; padding: 0 16px; cursor: pointer;
+  min-width: var(--btn-minw);
+  height: var(--btn-h);
+  border-radius: 999px;
+  border: none;
+  font-size: var(--btn-font);
+  padding: 0 var(--btn-pad-x);
+  cursor: pointer;
+  color: #fff;
+  background: #ff5b82; /* デフォルト色（個別IDで上書き） */
 }
 .preview-btn.primary { background: #28a745; }
 .preview-btn.danger  { background: #a1a1aa; }
 
-/* 旧世代スマホ幅でプレビューを少し小さく */
+/* 旧世代スマホ等：プレビュー本体とボタンを同調して縮小 */
 @media (max-width: 430px) {
   .preview-wrap {
-    width: min(88vw, 560px);   /* ← 92vw → 88vw に絞る */
-    padding: 12px;             /* 余白も少しだけ詰める */
-  }
-  #previewImage {
-    max-height: 64vh;          /* 70vh → 64vh：縦も控えめに */
-  }
-  .preview-actions {
-    gap: 12px;                 /* ボタン間の隙間を少し狭める */
-    margin-top: 10px;
-  }
-  .preview-btn {
-    min-width: 110px;          /* 横幅を微調整 */
-    height: 36px;              /* 40px → 36px */
-    font-size: 13px;           /* 14px → 13px */
-    padding: 0 12px;
+    --preview-wrap-w: min(88vw, 560px);
+    --preview-img-maxh: 64vh;
+    --preview-gap: 12px;
+
+    --btn-minw: 110px;
+    --btn-h: 36px;
+    --btn-font: 13px;
+    --btn-pad-x: 12px;
   }
 }
-
-/* さらに狭い端末（≈360px級）ではもう一段だけ縮める */
 @media (max-width: 380px) {
-  .preview-wrap { width: min(84vw, 520px); }
-  #previewImage { max-height: 60vh; }
+  .preview-wrap {
+    --preview-wrap-w: min(84vw, 520px);
+    --preview-img-maxh: 60vh;
+
+    --btn-minw: 100px;
+    --btn-h: 34px;
+    --btn-font: 12.5px;
+    --btn-pad-x: 10px;
+  }
 }
 
 /* ==================== スタンプ選択ボトムシート ==================== */

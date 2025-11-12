@@ -335,3 +335,11 @@ body {
 #previewCloseBtn:hover{
   filter: brightness(1.05);
 }
+
+
+
+/* ============ 共有ボタンをCSS上で無効化（上書きで対応）25/11/12 ============ */
+#previewShareBtn {
+  text-decoration: line-through; /* テキストに打ち消し線を追加 */
+  pointer-events: none; /* ボタンを「クリックできない」ようにする */
+}
